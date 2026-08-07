@@ -831,7 +831,8 @@ def generate_testcases():
     # ---------------------------
     print(test_dataframe.head())
     test_dataframe = test_dataframe.sample(n = 200)
-    generate_cocotb_tests(test_dataframe, "randomtests.py")
+    #generate_cocotb_tests(test_dataframe, "randomtests.py")
+    generate_cocotb_tests(test_dataframe, "randomtests.py", WRITE_INDIVIDUAL_TESTS=False, THRESHOLD=0.8)
     print("Cocotb testcases saved to randomtests.py")
 
 if __name__ == '__main__':
