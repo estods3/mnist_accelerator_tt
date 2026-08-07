@@ -3,7 +3,6 @@
 
 import cocotb
 from cocotb.types import LogicArray
-from cocotb.binary import BinaryValue
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
 from cocotb.triggers import RisingEdge, FallingEdge, Timer, ClockCycles
