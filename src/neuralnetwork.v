@@ -215,9 +215,9 @@ module digit_classifier (
             valid_out  <= valid_pipe;
 
             if (start) begin
-                $display("image_array=%b", image_in);
-                $display("image_array_int=%d", image_in);
-                $display("nn_digit=%d", nn_digit);
+                //$display("image_array=%b", image_in);
+                //$display("image_array_int=%d", image_in);
+                //$display("nn_digit=%d", nn_digit);
                 digit_out  <= nn_digit;  // cycle N:   data latched
                 valid_pipe <= 1'b1;      // cycle N+1: valid_out goes high
             end                          // cycle N+1: top reads digit_out — it's stable

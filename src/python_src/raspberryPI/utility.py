@@ -815,9 +815,9 @@ def generate_testcases():
     # Save Preprocessed Images as dataframe
     # -------------------------------------
     print("Saving Test Images in batches: ")
-    test_dataframe = pd.DataFrame(columns=["batch", "sample", "data vector", "label"])
     for batch_idx, (data, target) in enumerate(test_loader):
         print(str(batch_idx) + " ", end='')
+        test_dataframe = pd.DataFrame(columns=["batch", "sample", "data vector", "label"])
         if(data.shape == (test_kwargs["batch_size"], 1, 14, 14)):
             for i, single_image in enumerate(data):
                 flat_list = single_image.numpy().flatten(order='C').tolist()
@@ -829,14 +829,14 @@ def generate_testcases():
                 test_dataframe = pd.concat([test_dataframe, new_row], ignore_index=True)
                 if(save_images):
                     utils.save_image(single_image, '../data/MNIST/processed/test/batch{}_sample{}_class{}.png'.format(batch_idx, i, target[i]), normalize=False)
+            test_dataframe = test_dataframe.sample(n = 20)
+            generate_cocotb_tests(test_dataframe, "randomtests.py", WRITE_INDIVIDUAL_TESTS=False, THRESHOLD=0.8, name="test_mnist_batch" + str(batch_idx) + "_set")
 
     # Generate Verilog Test Cases
     # ---------------------------
-    print(test_dataframe.head())
-    test_dataframe = test_dataframe.sample(n = 200)
+    #test_dataframe = test_dataframe.sample(n = 200)
     #generate_cocotb_tests(test_dataframe, "randomtests.py")
-    generate_cocotb_tests(test_dataframe, "randomtests.py", WRITE_INDIVIDUAL_TESTS=False, THRESHOLD=0.8)
-    print("Cocotb testcases saved to randomtests.py")
+    print("Cocotb testcases saved to randomtests.py, copy to root/test/test.py to use with cocotb and TinyTapeout automation.")
 
 if __name__ == '__main__':
     print("")
